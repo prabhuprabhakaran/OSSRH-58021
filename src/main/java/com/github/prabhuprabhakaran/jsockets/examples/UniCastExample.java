@@ -50,7 +50,6 @@ public class UniCastExample {
 
         String lMessage = "Hello World";
         DatagramPacket lPacket = new DatagramPacket(lMessage.getBytes(), lMessage.getBytes().length);
-        lPacket.setData(lMessage.getBytes());
         lPacket.setSocketAddress(new InetSocketAddress("localhost", 8541));
         client.send(lPacket);
 
