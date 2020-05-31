@@ -32,7 +32,12 @@ public class NioExample {
                 String message = Charset.defaultCharset().decode(inputBuffer).toString();
                 inputBuffer.reset();
                 System.out.println("Got TCP Message <Server> : " + message);
-                evt.getNioServer().send(evt.getKey(), "Reply : " + message);
+//                evt.getNioServer().send(evt.getKey(), "Reply : " + message);
+                String replyMessage = "Reply : " + message;
+                ByteBuffer outputBuff = evt.getOutputBuffer();
+                outputBuff.clear();
+                outputBuff.put(ByteBuffer.wrap(replyMessage.getBytes()));
+                outputBuff.flip();
             }
 
             @Override
@@ -42,7 +47,11 @@ public class NioExample {
                 String message = Charset.defaultCharset().decode(inputBuffer).toString();
                 inputBuffer.reset();
                 System.out.println("Got UDP Message <Server> : " + message);
-//                evt.getNioServer().send(evt.getKey(), "Reply : " + message);
+                String replyMessage = "Reply : " + message;
+                ByteBuffer outputBuff = evt.getOutputBuffer();
+                outputBuff.clear();
+                outputBuff.put(ByteBuffer.wrap(replyMessage.getBytes()));
+                outputBuff.flip();
             }
 
         });
